@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Projects</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+/* Reset and body */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Arial, sans-serif; background-color: #121212; color: white; overflow-x: hidden; }
+
+/* Canvas background */
+#bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+
+/* Navbar */
+#nav-bar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 5%; background-color: #000; position: fixed; width: 100%; top: 0; z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+#navi-left a { color: white; text-decoration: none; font-size: 1.2rem; font-weight: bold; }
+#nav-bar ul { display: flex; list-style: none; gap: 2rem; }
+#nav-bar ul li a { color: white; text-decoration: none; font-size: 1rem; position: relative; padding: 5px 0; transition: color 0.3s ease; }
+#nav-bar ul li a:hover { color: red; }
+#nav-bar ul li a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background-color: red; transition: width 0.3s ease; }
+#nav-bar ul li a:hover::after { width: 100%; }
+.toggle_btn { color: white; font-size: 1.5rem; cursor: pointer; display: none; }
+
+/* Dropdown menu */
+.drop-menu {
+    position: fixed; right: 2rem; top: 60px; width: 300px; background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(15px); border-radius: 10px; overflow: hidden; display: none; z-index: 1000;
+}
+.drop-menu.open { display: block; }
+.drop-menu li { padding: 0.7rem; display: flex; justify-content: center; }
+.drop-menu li a { color: white; text-decoration: none; font-size: 1rem; }
+
+/* Main content */
+main { padding-top: 100px; width: 100%; min-height: 100vh; position: relative; z-index: 1; }
+h1 { text-align: center; margin-bottom: 20px; }
+
+/* Filter Buttons */
+.filter-buttons { text-align: center; margin-bottom: 30px; }
+.filter-buttons button {
+    padding: 12px 25px; margin: 0 10px; border: none; border-radius: 10px;
+    cursor: pointer; background-color: rgba(255,255,255,0.1); color: white; font-size: 1.1rem;
+    transition: background-color 0.3s;
+}
+.filter-buttons button:hover, .filter-buttons button.active { background-color: red; }
+
+/* Projects Grid */
+.projects-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, 300px); justify-content: center;
+    gap: 30px; width: 100%; margin: 0 auto;
+}
+.project-card {
+    width: 300px; height: 350px; background-color: rgba(255,255,255,0.1);
+    border-radius: 20px; overflow: hidden; text-align: center; cursor: pointer;
+    transition: transform 0.3s, background-color 0.3s; padding: 20px; font-size: 1.2rem; font-weight: bold;
+    display: flex; flex-direction: column; justify-content: space-between;
+}
+.project-card img { width: 100%; height: 200px; object-fit: cover; border-radius: 15px; margin-bottom: 10px; transition: transform 0.3s ease; }
+.project-card img:hover { transform: scale(1.1); }
+.project-card:hover { transform: scale(1.05); background-color: rgba(255,0,0,0.2); }
+.project-card span { color: white; transition: color 0.3s; }
+.project-card:hover span { color: #fff; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    #nav-bar ul { display: none; }
+    .toggle_btn { display: block; }
+}
+@media (min-width: 769px) { .drop-menu { display: none !important; } }
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<header>
+<div id="nav-bar">
+    <div id="navi-left"><a href="index.html">ROHAN ARAVIND PUDHOTA</a></div>
+    <ul>
+        <li><a href="index.html">HOME</a></li>
+        <li><a href="about.html">ABOUT</a></li>
+        <li><a href="projects.html">PROJECTS</a></li>
+        <li><a href="contact.html">CONTACT</a></li>
+    </ul>
+    <div class="toggle_btn"><i class="fa-solid fa-bars"></i></div>
+</div>
+
+<ul class="drop-menu">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="contact.html">Contact</a></li>
+</ul>
+</header>
+
+<main>
+<h1>My Projects</h1>
+
+<div class="filter-buttons">
+    <button class="filter-btn active" data-category="all">All</button>
+    <button class="filter-btn" data-category="web">Web Development</button>
+    <button class="filter-btn" data-category="ml">Machine Learning</button>
+</div>
+
+<div class="projects-grid">
+    <div class="project-card" data-category="web" data-link="https://github.com/RohanAravindPudhota/Weather_Application/tree/main/weather">
+        <img src="wheather_image.png">
+        <span>Weather Application</span>
+    </div>
+
+    <div class="project-card" data-category="ml" data-link="https://github.com/RohanAravindPudhota/loan_predection">
+        <img src="loan.png">
+        <span>Loan Price Prediction</span>
+    </div>
+</div>
+</main>
+
+<script>
+// Navbar toggle
+const toggleBtn = document.querySelector('.toggle_btn');
+const dropMenu = document.querySelector('.drop-menu');
+
+toggleBtn.addEventListener('click', () => {
+    dropMenu.classList.toggle('open');
+    const icon = toggleBtn.querySelector('i');
+    icon.classList.toggle('fa-bars');
+    icon.classList.toggle('fa-times');
+});
+
+document.addEventListener('click', (e) => {
+    if(!e.target.closest('.toggle_btn') && !e.target.closest('.drop-menu')){
+        dropMenu.classList.remove('open');
+        toggleBtn.querySelector('i').classList.add('fa-bars');
+        toggleBtn.querySelector('i').classList.remove('fa-times');
+    }
+});
+
+document.querySelectorAll('.drop-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+        dropMenu.classList.remove('open');
+        toggleBtn.querySelector('i').classList.add('fa-bars');
+        toggleBtn.querySelector('i').classList.remove('fa-times');
+    });
+});
+
+// Filter projects
+const filterButtons = document.querySelectorAll('.filter-btn');
+const projectCards = document.querySelectorAll('.project-card');
+
+filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        const category = button.dataset.category;
+        projectCards.forEach(card => {
+            card.style.display = (category === 'all' || card.dataset.category === category) ? 'flex' : 'none';
+        });
+    });
+});
+
+// Clickable project cards
+projectCards.forEach(card => {
+    card.addEventListener('click', () => {
+        const link = card.dataset.link;
+        if(link) window.open(link, "_blank");
+    });
+});
+
+// 2D WebGL background (particles)
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+const particleCount = 100;
+
+function initParticles() {
+    particles = [];
+    for(let i=0;i<particleCount;i++){
+        particles.push({
+            x: Math.random()*canvas.width,
+            y: Math.random()*canvas.height,
+            size: Math.random()*2+1,
+            speedX: (Math.random()-0.5)*1.5,
+            speedY: (Math.random()-0.5)*1.5
+        });
+    }
+}
+
+function animateParticles() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p=>{
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+        ctx.fillStyle = "rgba(255,0,0,0.7)";
+        ctx.fill();
+        p.x += p.speedX;
+        p.y += p.speedY;
+
+        // Wrap around edges
+        if(p.x<0) p.x=canvas.width;
+        if(p.x>canvas.width) p.x=0;
+        if(p.y<0) p.y=canvas.height;
+        if(p.y>canvas.height) p.y=0;
+    });
+    requestAnimationFrame(animateParticles);
+}
+
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    initParticles();
+});
+
+initParticles();
+animateParticles();
+</script>
+
+</body>
+</html>
